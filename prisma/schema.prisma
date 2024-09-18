@@ -1,0 +1,39 @@
+datasource db {
+    url      = env("DATABASE_URL")
+    provider = "postgresql"
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+model User {
+    id          Int      @id @default(autoincrement())
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+    email       String   @unique
+    name        String?
+    password    String
+    phoneNumber String?
+
+    @@index([email])
+}
+
+model Expanse {
+    id        Int      @id @default(autoincrement())
+    title     String
+    price     String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@index([title])
+}
+
+model DailySummary {
+    id            Int      @id @default(autoincrement())
+    date          DateTime @default(now())
+    openingAmount Int
+    closingAmount Int
+    totalSpent    Int
+    sale          Int
+}
